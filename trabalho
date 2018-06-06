@@ -1,0 +1,52 @@
+const int trigPin = 9; // pino do trig do sensor ultrassonico
+const int echoPin = 8; // pino do echo do sensor ultrassonico
+long duration; // variavel para o calculo da distancia
+int distanceCm;// variaveis para o calculo da distancia em centimetros
+
+void setup()
+ {
+Serial.begin(9600);
+pinMode(trigPin, OUTPUT); 
+pinMode(echoPin, INPUT); 
+pinMode(2, OUTPUT); 
+pinMode(3, OUTPUT);
+pinMode(4, OUTPUT); 
+pinMode(5, OUTPUT); 
+ } 
+void loop() {
+digitalWrite(trigPin, LOW);
+delayMicroseconds(2);
+digitalWrite(trigPin, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigPin, LOW);
+duration = pulseIn(echoPin, HIGH); 
+distanceCm= duration*0.034/2; 
+Serial.println(distanceCm);//da print na distancia atual
+if (distanceCm == 2){     //ascende a primeira led caso objeto esteja a 2cm de distancia
+digitalWrite(2, HIGH);
+digitalWrite(3, LOW);
+digitalWrite(4, LOW);
+digitalWrite(5, LOW);
+}
+else if (distanceCm== 5){ //ascende a primeira led caso objeto esteja a 5cm de distancia
+digitalWrite(2, HIGH);
+digitalWrite(3, HIGH);
+digitalWrite(4, LOW);
+digitalWrite(5, LOW);
+}
+
+else if (distanceCm==8){ //ascende a primeira led caso objeto esteja a 8cm de distancia
+digitalWrite(2, HIGH);
+digitalWrite(3, HIGH);
+digitalWrite(4, HIGH);
+digitalWrite(5, LOW);
+}
+
+else if(distanceCm == 10){  //ascende a primeira led caso objeto esteja a 10cm de distancia
+digitalWrite(2, HIGH); //liga ou desliga
+digitalWrite(3, HIGH);
+digitalWrite(4, HIGH);
+digitalWrite(5, HIGH);
+}
+delay(100);
+}
